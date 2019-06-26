@@ -12,18 +12,6 @@ import { Select, MenuItem } from "@material-ui/core"
 interface MainProps extends React.Props<{}> {}
 
 const Contact: React.FC<MainProps> = props => {
-  const [open, setOpen] = useState(false)
-  const [isSubmitionCompleted, setSubmitionCompleted] = useState(false)
-
-  function handleClose() {
-    setOpen(false)
-  }
-
-  function handleClickOpen() {
-    setSubmitionCompleted(false)
-    setOpen(true)
-  }
-
   return (
     <React.Fragment>
       <Container>
