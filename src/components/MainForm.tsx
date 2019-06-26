@@ -64,7 +64,7 @@ const Contact: React.FC<MainProps> = props => {
               } = props
 
               return (
-                <form onSubmit={handleSubmit}>
+                <Form>
                   <TextField
                     label="name"
                     name="name"
@@ -120,7 +120,7 @@ const Contact: React.FC<MainProps> = props => {
                       Submit
                     </Button>
                   </Box>
-                </form>
+                </Form>
               )
             }}
           </Formik>
