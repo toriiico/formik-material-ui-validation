@@ -4,6 +4,9 @@ import Button from "@material-ui/core/Button"
 import Container from "@material-ui/core/Container"
 import Card from "@material-ui/core/Card"
 import Box from "@material-ui/core/Box"
+import FormControl from "@material-ui/core/FormControl"
+import FormHelperText from "@material-ui/core/FormHelperText"
+import InputLabel from "@material-ui/core/InputLabel"
 
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
@@ -15,13 +18,14 @@ const Contact: React.FC<MainProps> = props => {
   return (
     <React.Fragment>
       <Container>
-        <Card style={{ width: 600 }}>
+        <Card style={{ width: 800 }}>
           <Formik
             initialValues={{
               email: "",
               name: "",
               comment: "",
               area: -1,
+              gender: [],
             }}
             onSubmit={(values, { setSubmitting }) => {
               console.log(values)
@@ -36,6 +40,7 @@ const Contact: React.FC<MainProps> = props => {
               area: Yup.number()
                 .min(0, "Required")
                 .required("Required"),
+              gender: Yup.array().required("Required"),
             })}
           >
             {props => {
@@ -62,7 +67,6 @@ const Contact: React.FC<MainProps> = props => {
                     helperText={errors.name && touched.name && errors.name}
                     margin="normal"
                   />
-
                   <TextField
                     // error={errors.email && touched.email}
                     label="email"
@@ -73,7 +77,6 @@ const Contact: React.FC<MainProps> = props => {
                     helperText={errors.email && touched.email && errors.email}
                     margin="normal"
                   />
-
                   <TextField
                     label="comment"
                     name="comment"
@@ -92,6 +95,7 @@ const Contact: React.FC<MainProps> = props => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     margin="normal"
+                    style={{ width: 100 }}
                     helperText={errors.area && touched.area && errors.area}
                   >
                     <MenuItem value={-1}>-</MenuItem>
@@ -99,6 +103,24 @@ const Contact: React.FC<MainProps> = props => {
                     <MenuItem value={1}>USA</MenuItem>
                     <MenuItem value={2}>TWN</MenuItem>
                   </TextField>
+
+                  <FormControl margin="normal">
+                    <InputLabel htmlFor="gender">Gender</InputLabel>
+                    <Select
+                      name="gender"
+                      multiple={true}
+                      value={values.gender}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      style={{ width: 100 }}
+                      renderValue={selected => (selected as string[]).join(", ")}
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+                    <FormHelperText>{errors.gender && touched.gender && errors.gender}</FormHelperText>
+                  </FormControl>
 
                   <Box>
                     <Button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
